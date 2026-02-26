@@ -11,11 +11,11 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repo Chat — Vibe Coding for Visual Studio</title>
-    <meta name="description" content="Repo Chat is a Visual Studio extension that brings AI-powered vibe coding directly into your IDE. Chat with your repository, fix errors instantly, and design UIs interactively.">
-    <meta name="keywords" content="Visual Studio, extension, AI, vibe coding, repository, chat, WinForms, WPF, code assistant">
-    <meta property="og:title" content="Repo Chat — Vibe Coding for Visual Studio">
-    <meta property="og:description" content="AI-powered vibe coding directly in Visual Studio. Chat with your repo, fix errors, design UIs interactively.">
+    <title>Repo Chat — Vibe Coding for Visual Studio 2019, 2022 &amp; 2026</title>
+    <meta name="description" content="Repo Chat is a free extension for the full Visual Studio (not VS Code) that brings AI-powered vibe coding directly into your IDE. Zero analytics, zero tracking — enterprise ready.">
+    <meta name="keywords" content="Visual Studio 2019, Visual Studio 2022, Visual Studio 2026, extension, AI, vibe coding, repository, chat, WinForms, WPF, enterprise, no tracking">
+    <meta property="og:title" content="Repo Chat — Vibe Coding for Visual Studio 2019, 2022 &amp; 2026">
+    <meta property="og:description" content="The only AI coding assistant built for the full Visual Studio. No analytics, no tracking — 100% enterprise ready. Free.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://repo.chat">
     <meta name="color-scheme" content="light dark">
@@ -425,6 +425,38 @@
             margin-bottom: 16px;
             opacity: 0.3;
         }
+
+        /* ── Trust strip ── */
+        .trust-strip {
+            padding: 0 0 40px;
+        }
+        .trust-items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .trust-item .trust-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .trust-icon.purple { background: var(--bg-icon-purple); }
+        .trust-icon.green { background: var(--bg-icon-green); }
+        .trust-icon.blue { background: var(--bg-icon-blue); }
 
         /* ── Features Grid ── */
         .features {
@@ -871,15 +903,15 @@
         <div class="fade-in">
             <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
-                Available for Visual Studio 2019, 2022 &amp; 2026
+                For the full Visual Studio — not VS Code
             </div>
             <h1>
                 <span class="gradient-text">Vibe Coding</span><br>
-                Directly in Visual Studio
+                for Visual Studio
             </h1>
             <p class="hero-sub">
-                Repo Chat brings AI-powered coding into your IDE as a native tool panel.
-                Chat with your repository, auto-fix errors, and design UIs interactively.
+                The AI coding assistant built exclusively for the full Visual Studio 2019, 2022, and 2026.
+                Zero analytics, zero tracking — completely free and enterprise ready.
             </p>
             <div class="hero-actions">
                 <a href="/download" class="btn-primary">
@@ -930,6 +962,32 @@
     </div>
 </section>
 
+<!-- Trust strip -->
+<section class="trust-strip">
+    <div class="container">
+        <div class="trust-items fade-in">
+            <div class="trust-item">
+                <div class="trust-icon purple">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                Full Visual Studio — not VS Code
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon green">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                Zero analytics &amp; tracking
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon blue">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                100% free &amp; enterprise ready
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Features -->
 <section class="features" id="features">
     <div class="container">
@@ -939,7 +997,7 @@
                 Features
             </div>
             <h2 class="section-title">Everything you need to code faster</h2>
-            <p class="section-sub">Repo Chat understands your entire codebase. Ask questions, make changes, and fix errors — all from a single chat panel.</p>
+            <p class="section-sub">Built for the full Visual Studio — not VS Code. Repo Chat understands your entire codebase. Ask questions, make changes, and fix errors — all from a native tool panel.</p>
         </div>
 
         <div class="features-grid">
@@ -979,16 +1037,16 @@
                 <div class="feature-icon green">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 </div>
-                <h3>Native Tool Panel</h3>
-                <p>Runs inside Visual Studio as a dockable tool window. No context switching, no external apps — it's right where you code.</p>
+                <h3>Built for Full Visual Studio</h3>
+                <p>Not a VS Code extension. Repo Chat is a native tool window for the full Visual Studio 2019, 2022, and 2026 — right where enterprise teams work.</p>
             </div>
 
             <div class="feature-card fade-in">
                 <div class="feature-icon amber">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
-                <h3>Private &amp; Secure</h3>
-                <p>Your code stays between you and the AI. No data is stored, shared, or used for training. Bring your own API key.</p>
+                <h3>Enterprise Ready</h3>
+                <p>Zero analytics, zero tracking, zero data collection. Your code never leaves your machine except for the AI call. Bring your own API key — fully auditable.</p>
             </div>
         </div>
     </div>
@@ -1142,8 +1200,8 @@
 <section class="quote-section">
     <div class="container">
         <div class="quote-card fade-in">
-            <blockquote>"It's like pair programming with someone who has actually read every file in your repo."</blockquote>
-            <cite>— The Repo Chat experience</cite>
+            <blockquote>"Finally — an AI assistant that runs in the full Visual Studio, not just VS Code. And it doesn't phone home."</blockquote>
+            <cite>— Built for enterprise .NET teams</cite>
         </div>
     </div>
 </section>
@@ -1153,7 +1211,7 @@
     <div class="container">
         <div class="cta-inner fade-in">
             <h2>Ready to code smarter?</h2>
-            <p>Install Repo Chat for free and bring AI-powered vibe coding to your Visual Studio workflow today.</p>
+            <p>Download Repo Chat for free. No analytics, no tracking, no strings attached — just AI-powered vibe coding in the full Visual Studio.</p>
             <div class="hero-actions">
                 <a href="/download" class="btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>

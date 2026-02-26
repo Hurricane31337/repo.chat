@@ -11,8 +11,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download — Repo Chat</title>
-    <meta name="description" content="Download Repo Chat for Visual Studio 2019, 2022, or 2026. Choose your version and install the .vsix extension directly.">
+    <title>Download — Repo Chat for Visual Studio 2019, 2022 &amp; 2026</title>
+    <meta name="description" content="Download Repo Chat for the full Visual Studio (not VS Code). Choose your version — VS 2019, 2022, or 2026. Free, no analytics, no tracking. Enterprise ready.">
     <meta name="color-scheme" content="light dark">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -562,7 +562,7 @@
 <section class="page-header">
     <div class="container fade-in">
         <h1>Download Repo Chat</h1>
-        <p>Choose the version that matches your Visual Studio installation. Each .vsix is built specifically for its target IDE.</p>
+        <p>For the full Visual Studio — not VS Code. Choose the version that matches your installation. Free, with zero analytics and zero tracking.</p>
     </div>
 </section>
 

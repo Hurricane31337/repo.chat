@@ -22,242 +22,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
     <style>
-        /* ── Brand colors (constant) ── */
-        :root {
-            --purple-400: #c084fc;
-            --purple-500: #a855f7;
-            --purple-600: #9333ea;
-            --purple-700: #7e22ce;
-            --blue-500: #3b82f6;
-            --blue-600: #2563eb;
-            --cyan-400: #22d3ee;
-        }
-
-        /* ── Dark theme (default) ── */
-        :root {
-            --bg: #020617;
-            --bg-card: rgba(15, 23, 42, 0.5);
-            --bg-nav: rgba(2, 6, 23, 0.7);
-            --bg-titlebar: rgba(30, 41, 59, 0.6);
-            --bg-screenshot: rgba(15, 23, 42, 0.6);
-            --bg-btn-secondary: rgba(148, 163, 184, 0.08);
-            --bg-btn-secondary-hover: rgba(148, 163, 184, 0.14);
-            --bg-dot: rgba(148, 163, 184, 0.15);
-            --bg-icon-subtle: rgba(148, 163, 184, 0.05);
-            --bg-step-num: rgba(148, 163, 184, 0.08);
-            --bg-badge: rgba(147, 51, 234, 0.1);
-            --bg-quote: linear-gradient(135deg, rgba(147, 51, 234, 0.06), rgba(59, 130, 246, 0.06));
-            --bg-check: rgba(34, 197, 94, 0.12);
-            --bg-icon-purple: rgba(147, 51, 234, 0.12);
-            --bg-icon-blue: rgba(59, 130, 246, 0.12);
-            --bg-icon-cyan: rgba(34, 211, 238, 0.12);
-            --bg-icon-green: rgba(34, 197, 94, 0.12);
-            --bg-icon-amber: rgba(245, 158, 11, 0.12);
-            --bg-icon-rose: rgba(244, 63, 94, 0.12);
-            --text-heading: #ffffff;
-            --text-body: #e2e8f0;
-            --text-muted: #94a3b8;
-            --text-faint: #64748b;
-            --text-dimmed: #475569;
-            --text-link-hover: #ffffff;
-            --text-badge: #d8b4fe;
-            --text-label: #c084fc;
-            --border: rgba(148, 163, 184, 0.06);
-            --border-card: rgba(148, 163, 184, 0.06);
-            --border-card-hover: rgba(147, 51, 234, 0.2);
-            --border-btn-secondary: rgba(148, 163, 184, 0.12);
-            --border-badge: rgba(147, 51, 234, 0.2);
-            --border-screenshot: rgba(148, 163, 184, 0.1);
-            --shadow-screenshot: 0 0 0 1px rgba(148, 163, 184, 0.05), 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 80px rgba(147, 51, 234, 0.08);
-            --shadow-showcase: 0 25px 60px rgba(0, 0, 0, 0.3);
-            --shadow-btn: 0 0 30px rgba(147, 51, 234, 0.2);
-            --shadow-btn-hover: 0 0 40px rgba(147, 51, 234, 0.35);
-            --glow-purple: rgba(147, 51, 234, 0.08);
-            --glow-blue: rgba(59, 130, 246, 0.06);
-            --gradient-text-from: var(--purple-400);
-            --gradient-text-to: var(--cyan-400);
-            --logo-text: #ffffff;
-        }
-
-        /* ── Light theme ── */
-        :root.light {
-                --bg: #f8fafc;
-                --bg-card: rgba(255, 255, 255, 0.7);
-                --bg-nav: rgba(248, 250, 252, 0.8);
-                --bg-titlebar: rgba(241, 245, 249, 0.8);
-                --bg-screenshot: rgba(241, 245, 249, 0.6);
-                --bg-btn-secondary: rgba(100, 116, 139, 0.08);
-                --bg-btn-secondary-hover: rgba(100, 116, 139, 0.14);
-                --bg-dot: rgba(100, 116, 139, 0.2);
-                --bg-icon-subtle: rgba(100, 116, 139, 0.06);
-                --bg-step-num: rgba(100, 116, 139, 0.08);
-                --bg-badge: rgba(147, 51, 234, 0.08);
-                --bg-quote: linear-gradient(135deg, rgba(147, 51, 234, 0.04), rgba(59, 130, 246, 0.04));
-                --bg-check: rgba(34, 197, 94, 0.1);
-                --bg-icon-purple: rgba(147, 51, 234, 0.1);
-                --bg-icon-blue: rgba(59, 130, 246, 0.1);
-                --bg-icon-cyan: rgba(34, 211, 238, 0.1);
-                --bg-icon-green: rgba(34, 197, 94, 0.1);
-                --bg-icon-amber: rgba(245, 158, 11, 0.1);
-                --bg-icon-rose: rgba(244, 63, 94, 0.1);
-                --text-heading: #0f172a;
-                --text-body: #334155;
-                --text-muted: #64748b;
-                --text-faint: #94a3b8;
-                --text-dimmed: #94a3b8;
-                --text-link-hover: #0f172a;
-                --text-badge: #7e22ce;
-                --text-label: #9333ea;
-                --border: rgba(100, 116, 139, 0.1);
-                --border-card: rgba(100, 116, 139, 0.1);
-                --border-card-hover: rgba(147, 51, 234, 0.3);
-                --border-btn-secondary: rgba(100, 116, 139, 0.15);
-                --border-badge: rgba(147, 51, 234, 0.2);
-                --border-screenshot: rgba(100, 116, 139, 0.12);
-                --shadow-screenshot: 0 0 0 1px rgba(100, 116, 139, 0.08), 0 25px 80px rgba(0, 0, 0, 0.08), 0 0 40px rgba(147, 51, 234, 0.03);
-                --shadow-showcase: 0 25px 60px rgba(0, 0, 0, 0.06);
-                --shadow-btn: 0 0 30px rgba(147, 51, 234, 0.12);
-                --shadow-btn-hover: 0 0 40px rgba(147, 51, 234, 0.2);
-                --glow-purple: rgba(147, 51, 234, 0.04);
-                --glow-blue: rgba(59, 130, 246, 0.03);
-                --gradient-text-from: var(--purple-700);
-                --gradient-text-to: #0891b2;
-                --logo-text: #0f172a;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ── Ambient background ── */
-        .bg-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .bg-glow::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -20%;
-            width: 80%;
-            height: 80%;
-            background: radial-gradient(ellipse, var(--glow-purple) 0%, transparent 70%);
-            animation: drift 20s ease-in-out infinite;
-        }
-        .bg-glow::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            right: -20%;
-            width: 70%;
-            height: 70%;
-            background: radial-gradient(ellipse, var(--glow-blue) 0%, transparent 70%);
-            animation: drift 25s ease-in-out infinite reverse;
-        }
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(60px, 30px); }
-        }
-
-        /* ── Layout ── */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ── Navigation ── */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 16px 0;
-            background: var(--bg-nav);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: background 0.3s;
-        }
-        nav .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--logo-text);
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: var(--text-link-hover);
-        }
-        .nav-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 20px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
-            color: white !important;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .nav-cta:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
-        }
+        html { scroll-behavior: smooth; }
 
         /* ── Hero ── */
         .hero {
@@ -466,6 +233,38 @@
         .trust-icon.purple { background: var(--bg-icon-purple); }
         .trust-icon.green { background: var(--bg-icon-green); }
         .trust-icon.blue { background: var(--bg-icon-blue); }
+
+        /* ── Nav CTA ── */
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 20px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
+            color: white !important;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .nav-cta:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+        .nav-mobile-overlay .nav-cta-mobile {
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+        }
 
         /* ── Features Grid ── */
         .features {
@@ -740,74 +539,17 @@
             line-height: 1.7;
         }
 
-        /* ── Footer ── */
-        footer {
-            padding: 48px 0;
-            border-top: 1px solid var(--border);
+        /* ── Step number count-up glow ── */
+        .step-number.counted {
+            animation: step-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        footer .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-faint);
-        }
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            list-style: none;
-        }
-        .footer-links a {
-            color: var(--text-faint);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-        .footer-links a:hover {
-            color: var(--text-body);
+        @keyframes step-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        /* ── Theme toggle ── */
-        .theme-toggle {
-            position: fixed;
-            top: 18px;
-            right: 24px;
-            z-index: 200;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border-btn-secondary);
-            border-radius: 10px;
-            background: var(--bg-btn-secondary);
-            backdrop-filter: blur(12px);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: background 0.2s, color 0.2s, transform 0.2s;
-            padding: 0;
-        }
-        .theme-toggle:hover {
-            background: var(--bg-btn-secondary-hover);
-            color: var(--text-heading);
-            transform: scale(1.08);
-        }
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            transition: opacity 0.2s;
-        }
-        .theme-toggle .icon-light { display: none; }
-        .theme-toggle .icon-dark { display: block; }
-        :root.light .theme-toggle .icon-light { display: block; }
-        :root.light .theme-toggle .icon-dark { display: none; }
-
-        /* ── Responsive ── */
+        /* ── Page-specific responsive ── */
         @media (max-width: 900px) {
             .features-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -833,6 +575,9 @@
             .nav-links {
                 display: none;
             }
+            .nav-toggle {
+                display: flex;
+            }
             .hero {
                 padding: 130px 0 60px;
             }
@@ -843,11 +588,6 @@
                 width: 100%;
                 justify-content: center;
             }
-            footer .container {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
             .quote-card {
                 padding: 40px 24px;
             }
@@ -855,143 +595,11 @@
                 font-size: 1.15rem;
             }
         }
-
-        /* ── Animations ── */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ── Cursor spotlight ── */
-        .cursor-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s;
-            opacity: 0;
-        }
-        .cursor-glow.active { opacity: 1; }
-        :root.light .cursor-glow {
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.10) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
-        }
-
-        /* ── 3D tilt cards ── */
-        .tilt-card {
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-        .tilt-card .tilt-shine {
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,0.06) 0%, transparent 60%);
-            z-index: 2;
-        }
-        :root.light .tilt-card .tilt-shine {
-            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(147,51,234,0.05) 0%, transparent 60%);
-        }
-
-        /* ── Floating particles ── */
-        .particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ── Scroll progress bar ── */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--purple-600), var(--cyan-400));
-            z-index: 999;
-            width: 0%;
-            transition: none;
-        }
-
-        /* ── Hack mode terminal overlay ── */
-        .hack-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(0, 0, 0, 0.92);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .hack-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .hack-terminal {
-            max-width: 700px;
-            width: 90%;
-            color: #4ade80;
-            font-size: 0.85rem;
-            line-height: 1.8;
-            text-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
-        }
-        .hack-terminal .cursor-blink {
-            display: inline-block;
-            width: 8px;
-            height: 1.1em;
-            background: #4ade80;
-            vertical-align: text-bottom;
-            animation: blink-cursor 0.8s step-end infinite;
-        }
-        @keyframes blink-cursor {
-            50% { opacity: 0; }
-        }
-
-        /* ── Logo spin easter egg ── */
-        @keyframes logo-spin-bounce {
-            0% { transform: rotate(0deg) scale(1); }
-            25% { transform: rotate(360deg) scale(1.3); }
-            50% { transform: rotate(720deg) scale(0.8); }
-            75% { transform: rotate(1080deg) scale(1.15); }
-            100% { transform: rotate(1440deg) scale(1); }
-        }
-        .logo-spin .logo-icon {
-            animation: logo-spin-bounce 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* ── Step number count-up glow ── */
-        .step-number.counted {
-            animation: step-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes step-pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            60% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
 <div class="bg-glow"></div>
-<div class="cursor-glow" id="cursor-glow"></div>
 <canvas class="particles-canvas" id="particles"></canvas>
 <div class="scroll-progress" id="scroll-progress"></div>
 <div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
@@ -1030,8 +638,21 @@
                 Download
             </a></li>
         </ul>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+            <svg class="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
     </div>
 </nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#showcase">Showcase</a>
+    <a href="/download" class="nav-cta-mobile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+    </a>
+</div>
 
 <!-- Hero -->
 <section class="hero">
@@ -1078,7 +699,7 @@
 
         <!-- Hero Screenshot -->
         <div class="hero-screenshot fade-in">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame tilt-card">
                 <div class="screenshot-titlebar">
                     <div class="screenshot-dot"></div>
                     <div class="screenshot-dot"></div>
@@ -1138,7 +759,7 @@
         </div>
 
         <div class="features-grid">
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon purple">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
@@ -1146,7 +767,7 @@
                 <p>Ask anything about your codebase. Repo Chat reads and understands your entire repository to give precise, contextual answers.</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon blue">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 </div>
@@ -1154,7 +775,7 @@
                 <p>Repo Chat can directly read and modify files in your repository. Describe changes in plain English and watch them happen.</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon rose">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 </div>
@@ -1162,7 +783,7 @@
                 <p>Paste a compiler error or exception and Repo Chat diagnoses the root cause and applies the fix automatically.</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon cyan">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 </div>
@@ -1170,7 +791,7 @@
                 <p>Open the WinForms or WPF Designer alongside Repo Chat and iterate on your UI visually — just describe what you want.</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon green">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 </div>
@@ -1178,7 +799,7 @@
                 <p>Not a VS Code extension. Repo Chat is a native tool window for the full Visual Studio 2019, 2022, and 2026 — right where enterprise teams work.</p>
             </div>
 
-            <div class="feature-card fade-in">
+            <div class="feature-card tilt-card fade-in">
                 <div class="feature-icon amber">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
@@ -1336,7 +957,7 @@
 <!-- Quote -->
 <section class="quote-section">
     <div class="container">
-        <div class="quote-card fade-in">
+        <div class="quote-card tilt-card fade-in">
             <blockquote>"Finally — an AI assistant that runs in the full Visual Studio, not just VS Code. And it doesn't phone home."</blockquote>
             <cite>— Built for enterprise .NET teams</cite>
         </div>
@@ -1373,180 +994,9 @@
     </div>
 </footer>
 
-<!-- Scroll animations, interactions & easter eggs -->
+<script src="/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-
-    /* ── Fade-in on scroll ── */
-    var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-in').forEach(function (el) {
-        observer.observe(el);
-    });
-
-    /* ── Theme toggle ── */
-    document.getElementById('theme-toggle').addEventListener('click', function () {
-        var isLight = document.documentElement.classList.toggle('light');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    });
-
-    /* ── Cursor spotlight ── */
-    var glow = document.getElementById('cursor-glow');
-    var mouseX = -1000, mouseY = -1000, glowX = -1000, glowY = -1000;
-    var glowActive = false;
-
-    document.addEventListener('mousemove', function (e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        if (!glowActive) {
-            glowActive = true;
-            glow.classList.add('active');
-        }
-    });
-    document.addEventListener('mouseleave', function () {
-        glowActive = false;
-        glow.classList.remove('active');
-    });
-
-    (function animateGlow() {
-        glowX += (mouseX - glowX) * 0.12;
-        glowY += (mouseY - glowY) * 0.12;
-        glow.style.left = glowX + 'px';
-        glow.style.top = glowY + 'px';
-        requestAnimationFrame(animateGlow);
-    })();
-
-    /* ── Scroll progress bar ── */
-    var progressBar = document.getElementById('scroll-progress');
-    window.addEventListener('scroll', function () {
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        progressBar.style.width = pct + '%';
-    }, { passive: true });
-
-    /* ── Scroll parallax for background glow ── */
-    var bgGlow = document.querySelector('.bg-glow');
-    window.addEventListener('scroll', function () {
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var shift = scrollTop * 0.08;
-        bgGlow.style.transform = 'translateY(' + (-shift) + 'px)';
-    }, { passive: true });
-
-    /* ── 3D Tilt on cards ── */
-    var tiltTargets = document.querySelectorAll('.feature-card, .quote-card, .screenshot-frame');
-    tiltTargets.forEach(function (card) {
-        var shine = document.createElement('div');
-        shine.className = 'tilt-shine';
-        card.appendChild(shine);
-        card.classList.add('tilt-card');
-
-        card.addEventListener('mousemove', function (e) {
-            var rect = card.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            var centerX = rect.width / 2;
-            var centerY = rect.height / 2;
-            var rotateX = ((y - centerY) / centerY) * -6;
-            var rotateY = ((x - centerX) / centerX) * 6;
-
-            card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
-            shine.style.opacity = '1';
-            shine.style.setProperty('--shine-x', ((x / rect.width) * 100) + '%');
-            shine.style.setProperty('--shine-y', ((y / rect.height) * 100) + '%');
-        });
-
-        card.addEventListener('mouseleave', function () {
-            card.style.transform = '';
-            shine.style.opacity = '0';
-        });
-    });
-
-    /* ── Floating particles ── */
-    var canvas = document.getElementById('particles');
-    var ctx = canvas.getContext('2d');
-    var particles = [];
-    var PARTICLE_COUNT = 60;
-
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    function isLightTheme() {
-        return document.documentElement.classList.contains('light');
-    }
-
-    for (var i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            size: Math.random() * 2.5 + 0.8,
-            speedX: (Math.random() - 0.5) * 0.3,
-            speedY: (Math.random() - 0.5) * 0.3,
-            opacity: Math.random() * 0.5 + 0.15,
-            hue: Math.random() > 0.5 ? 270 : 220
-        });
-    }
-
-    (function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        var light = isLightTheme();
-
-        for (var i = 0; i < particles.length; i++) {
-            var p = particles[i];
-            p.x += p.speedX;
-            p.y += p.speedY;
-
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
-
-            /* Repel from cursor */
-            var dx = p.x - mouseX;
-            var dy = p.y - mouseY;
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 150) {
-                var force = (150 - dist) / 150;
-                p.x += (dx / dist) * force * 2;
-                p.y += (dy / dist) * force * 2;
-            }
-
-            var alpha = light ? p.opacity * 0.7 : p.opacity;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = 'hsla(' + p.hue + ', 70%, ' + (light ? '45%' : '60%') + ', ' + alpha + ')';
-            ctx.fill();
-        }
-
-        /* Draw faint lines between nearby particles */
-        for (var i = 0; i < particles.length; i++) {
-            for (var j = i + 1; j < particles.length; j++) {
-                var dx = particles[i].x - particles[j].x;
-                var dy = particles[i].y - particles[j].y;
-                var dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 120) {
-                    var lineAlpha = (1 - dist / 120) * (light ? 0.08 : 0.08);
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = 'rgba(147, 51, 234, ' + lineAlpha + ')';
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-        }
-
-        requestAnimationFrame(animateParticles);
-    })();
 
     /* ── Step number count-up animation ── */
     var stepNums = document.querySelectorAll('.step-number');
@@ -1572,137 +1022,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.5 });
     stepNums.forEach(function (el) { stepObserver.observe(el); });
 
-    /* ══════════════════════════════════════
-       EASTER EGGS
-       ══════════════════════════════════════ */
-
-    /* ── 1. Secret word "hack" → Terminal takeover ── */
-    var secretBuffer = '';
-    var hackOverlay = document.getElementById('hack-overlay');
-    var hackTerminal = document.getElementById('hack-terminal');
-
-    document.addEventListener('keydown', function (e) {
-        if (hackOverlay.classList.contains('active')) return;
-        if (e.key.length === 1) {
-            secretBuffer += e.key.toLowerCase();
-            if (secretBuffer.length > 10) secretBuffer = secretBuffer.slice(-10);
-            if (secretBuffer.endsWith('hack')) {
-                secretBuffer = '';
-                triggerHack();
-            }
-        }
-    });
-
-    function triggerHack() {
-        hackOverlay.classList.add('active');
-        hackTerminal.innerHTML = '';
-
-        var lines = [
-            '> Analyzing website and VS extension code...',
-            '> Scanning repo.chat for analytics scripts... <span style="color:#4ade80">CLEAN</span>',
-            '> Scanning extension binary for telemetry... <span style="color:#4ade80">CLEAN</span>',
-            '> Outbound network calls: <span style="color:#fbbf24">only your configured LLM API</span>',
-            '> Hidden tracking endpoints: <span style="color:#f87171">0</span>',
-            '> Data collection services: <span style="color:#f87171">NONE</span>',
-            '> Fingerprinting or device IDs: <span style="color:#f87171">NONE</span>',
-            '> ',
-            '> <span style="color:#22d3ee">VERDICT: 100% clean. Your code never leaves your machine.</span>',
-            '> <span style="color:#c084fc">Nothing to hide — that\'s the whole point.</span>',
-            '> ',
-            '> <span style="color:#64748b">Press any key to exit...</span>'
-        ];
-
-        var lineIndex = 0;
-        function typeLine() {
-            if (lineIndex >= lines.length) {
-                document.addEventListener('keydown', dismissHack, { once: true });
-                hackOverlay.addEventListener('click', dismissHack, { once: true });
-                return;
-            }
-
-            var line = lines[lineIndex];
-            var span = document.createElement('div');
-            hackTerminal.appendChild(span);
-
-            var plainText = line.replace(/<[^>]*>/g, '');
-            var charIndex = 0;
-
-            function typeChar() {
-                if (charIndex < plainText.length) {
-                    charIndex++;
-                    span.innerHTML = line.substring(0, findHtmlIndex(line, charIndex)) + '<span class="cursor-blink"></span>';
-                    setTimeout(typeChar, 15 + Math.random() * 25);
-                } else {
-                    span.innerHTML = line;
-                    lineIndex++;
-                    setTimeout(typeLine, 100);
-                }
-            }
-            typeChar();
-        }
-        typeLine();
-    }
-
-    function findHtmlIndex(html, plainIndex) {
-        var plain = 0;
-        var i = 0;
-        while (i < html.length && plain < plainIndex) {
-            if (html[i] === '<') {
-                while (i < html.length && html[i] !== '>') i++;
-                i++;
-            } else {
-                plain++;
-                i++;
-            }
-        }
-        return i;
-    }
-
-    function dismissHack() {
-        hackOverlay.classList.remove('active');
-        setTimeout(function () { hackTerminal.innerHTML = ''; }, 300);
-    }
-
-    /* ── 3. Logo click × 3 → Logo spin ── */
-    var logoClickCount = 0;
-    var logoTimer = null;
-    var logoEl = document.querySelector('.logo');
-
-    logoEl.addEventListener('click', function (e) {
-        e.preventDefault();
-        logoClickCount++;
-
-        clearTimeout(logoTimer);
-        logoTimer = setTimeout(function () { logoClickCount = 0; }, 2000);
-
-        if (logoClickCount >= 3) {
-            logoClickCount = 0;
-            logoEl.classList.add('logo-spin');
-            logoEl.addEventListener('animationend', function () {
-                logoEl.classList.remove('logo-spin');
-            }, { once: true });
-        }
-    });
-
-    /* ── 4. Click ripple effect ── */
-    document.addEventListener('click', function (e) {
-        var ripple = document.createElement('div');
-        ripple.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;z-index:9998;' +
-            'width:0;height:0;left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
-            'border:2px solid rgba(147,51,234,0.3);transform:translate(-50%,-50%);' +
-            'transition:width 0.6s ease-out,height 0.6s ease-out,opacity 0.6s ease-out;opacity:1;';
-        document.body.appendChild(ripple);
-
-        requestAnimationFrame(function () {
-            ripple.style.width = '200px';
-            ripple.style.height = '200px';
-            ripple.style.opacity = '0';
-        });
-
-        setTimeout(function () { ripple.remove(); }, 700);
-    });
-
-    /* ── 5. Magnetic nav CTA button ── */
+    /* ── Magnetic nav CTA button ── */
     var navCta = document.querySelector('.nav-cta');
     if (navCta) {
         navCta.style.transition = 'transform 0.25s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s';

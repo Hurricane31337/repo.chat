@@ -32,7 +32,6 @@
         :root {
             --bg: #020617;
             --bg-card: rgba(15, 23, 42, 0.5);
-            --bg-card-featured: linear-gradient(180deg, rgba(147, 51, 234, 0.06) 0%, rgba(15, 23, 42, 0.5) 50%);
             --bg-nav: rgba(2, 6, 23, 0.7);
             --bg-btn-secondary: rgba(148, 163, 184, 0.08);
             --bg-btn-secondary-hover: rgba(148, 163, 184, 0.14);
@@ -51,11 +50,9 @@
             --border: rgba(148, 163, 184, 0.06);
             --border-card: rgba(148, 163, 184, 0.08);
             --border-card-hover: rgba(147, 51, 234, 0.25);
-            --border-card-featured: rgba(147, 51, 234, 0.3);
             --border-btn-secondary: rgba(148, 163, 184, 0.1);
             --border-icon: rgba(148, 163, 184, 0.06);
             --border-step: rgba(148, 163, 184, 0.1);
-            --shadow-card-hover: 0 25px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(147, 51, 234, 0.06);
             --shadow-btn: 0 0 24px rgba(147, 51, 234, 0.15);
             --shadow-btn-hover: 0 0 32px rgba(147, 51, 234, 0.3);
             --glow-purple: rgba(147, 51, 234, 0.08);
@@ -67,7 +64,6 @@
         :root.light {
                 --bg: #f8fafc;
                 --bg-card: rgba(255, 255, 255, 0.7);
-                --bg-card-featured: linear-gradient(180deg, rgba(147, 51, 234, 0.04) 0%, rgba(255, 255, 255, 0.7) 50%);
                 --bg-nav: rgba(248, 250, 252, 0.8);
                 --bg-btn-secondary: rgba(100, 116, 139, 0.08);
                 --bg-btn-secondary-hover: rgba(100, 116, 139, 0.14);
@@ -86,11 +82,9 @@
                 --border: rgba(100, 116, 139, 0.1);
                 --border-card: rgba(100, 116, 139, 0.1);
                 --border-card-hover: rgba(147, 51, 234, 0.3);
-                --border-card-featured: rgba(147, 51, 234, 0.25);
                 --border-btn-secondary: rgba(100, 116, 139, 0.15);
                 --border-icon: rgba(100, 116, 139, 0.08);
                 --border-step: rgba(100, 116, 139, 0.12);
-                --shadow-card-hover: 0 25px 60px rgba(0, 0, 0, 0.06), 0 0 40px rgba(147, 51, 234, 0.03);
                 --shadow-btn: 0 0 24px rgba(147, 51, 234, 0.1);
                 --shadow-btn-hover: 0 0 32px rgba(147, 51, 234, 0.18);
                 --glow-purple: rgba(147, 51, 234, 0.04);
@@ -211,103 +205,75 @@
             line-height: 1.7;
         }
 
-        /* ── Version Chooser ── */
+        /* ── Download chooser ── */
         .chooser {
             padding: 0 0 120px;
         }
-        .version-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 960px;
+        .download-card {
+            max-width: 520px;
             margin: 0 auto;
-        }
-        .version-card {
-            position: relative;
-            border-radius: 20px;
+            border-radius: 24px;
             background: var(--bg-card);
             border: 1px solid var(--border-card);
-            padding: 40px 32px 36px;
+            padding: 48px 40px;
             text-align: center;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-        .version-card:hover {
-            border-color: var(--border-card-hover);
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-card-hover);
-        }
-        .version-card.featured {
-            border-color: var(--border-card-featured);
-            background: var(--bg-card-featured);
-        }
-        .version-badge {
-            position: absolute;
-            top: -12px;
-            display: inline-flex;
-            padding: 4px 14px;
-            border-radius: 100px;
-            background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: white;
-        }
-        .version-icon {
+        .download-card-icon {
             width: 64px; height: 64px;
             border-radius: 16px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             background: var(--bg-icon-subtle);
             border: 1px solid var(--border-icon);
         }
-        .version-icon svg {
+        .download-card-icon svg {
             opacity: 0.9;
         }
-        .version-card h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-heading);
-            margin-bottom: 4px;
-        }
-        .version-card .vs-year {
-            font-size: 0.85rem;
-            color: var(--text-faint);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        .version-card .version-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            margin-bottom: 28px;
-        }
-        .version-meta-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .download-label {
+            display: block;
             font-size: 0.82rem;
-            padding: 0 4px;
-        }
-        .version-meta-row .label {
+            font-weight: 600;
             color: var(--text-faint);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
-        .version-meta-row .value {
-            color: var(--text-body);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-        }
-        .version-divider {
+        .version-select {
             width: 100%;
-            height: 1px;
-            background: var(--border);
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-btn-secondary);
+            background: var(--bg-btn-secondary);
+            color: var(--text-heading);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            transition: border-color 0.2s;
+            margin-bottom: 8px;
+        }
+        .version-select:focus {
+            outline: none;
+            border-color: var(--purple-500);
+        }
+        .version-select option {
+            background: var(--bg);
+            color: var(--text-heading);
+        }
+        .version-detail {
+            font-size: 0.78rem;
+            color: var(--text-faint);
+            font-family: 'JetBrains Mono', monospace;
             margin-bottom: 28px;
+            min-height: 1.3em;
         }
         .btn-download {
             display: inline-flex;
@@ -315,37 +281,26 @@
             justify-content: center;
             gap: 10px;
             width: 100%;
-            padding: 14px 24px;
+            padding: 16px 24px;
             border-radius: 12px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             text-decoration: none;
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
             border: none;
             font-family: inherit;
-        }
-        .btn-download.primary {
             background: linear-gradient(135deg, var(--purple-600), var(--blue-600));
             color: white;
             box-shadow: var(--shadow-btn);
         }
-        .btn-download.primary:hover {
+        .btn-download:hover {
             opacity: 0.92;
             transform: translateY(-2px);
             box-shadow: var(--shadow-btn-hover);
         }
-        .btn-download.secondary {
-            background: var(--bg-btn-secondary);
-            border: 1px solid var(--border-btn-secondary);
-            color: var(--text-body);
-        }
-        .btn-download.secondary:hover {
-            background: var(--bg-btn-secondary-hover);
-            transform: translateY(-2px);
-        }
         .file-name {
-            margin-top: 12px;
+            margin-top: 14px;
             font-size: 0.75rem;
             color: var(--text-dimmed);
             font-family: 'JetBrains Mono', monospace;
@@ -493,15 +448,11 @@
 
         /* ── Responsive ── */
         @media (max-width: 800px) {
-            .version-grid {
-                grid-template-columns: 1fr;
-                max-width: 380px;
-            }
-            .version-card.featured { order: -1; }
             .nav-links { display: none; }
         }
         @media (max-width: 600px) {
             .page-header { padding: 130px 0 48px; }
+            .download-card { padding: 36px 24px; }
             .install-card-header,
             .install-steps { padding-left: 20px; padding-right: 20px; }
             footer .container {
@@ -566,87 +517,27 @@
     </div>
 </section>
 
-<!-- Version Chooser -->
+<!-- Download Chooser -->
 <section class="chooser">
     <div class="container">
-        <div class="version-grid">
-
-            <!-- VS 2019 -->
-            <div class="version-card fade-in">
-                <div class="version-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
-                </div>
-                <h2>VS 2019</h2>
-                <p class="vs-year">Visual Studio 2019</p>
-                <div class="version-meta">
-                    <div class="version-meta-row">
-                        <span class="label">Target</span>
-                        <span class="value">16.x</span>
-                    </div>
-                    <div class="version-meta-row">
-                        <span class="label">Framework</span>
-                        <span class="value">.NET Framework</span>
-                    </div>
-                </div>
-                <div class="version-divider"></div>
-                <a href="/downloads/RepoChatVS2019.vsix" class="btn-download secondary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download .vsix
-                </a>
-                <div class="file-name">RepoChatVS2019.vsix</div>
+        <div class="download-card fade-in">
+            <div class="download-card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
             </div>
 
-            <!-- VS 2022 (Featured) -->
-            <div class="version-card featured fade-in">
-                <div class="version-badge">Most Popular</div>
-                <div class="version-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/><line x1="2" y1="8.5" x2="22" y2="8.5"/></svg>
-                </div>
-                <h2>VS 2022</h2>
-                <p class="vs-year">Visual Studio 2022</p>
-                <div class="version-meta">
-                    <div class="version-meta-row">
-                        <span class="label">Target</span>
-                        <span class="value">17.x</span>
-                    </div>
-                    <div class="version-meta-row">
-                        <span class="label">Framework</span>
-                        <span class="value">.NET / 64-bit</span>
-                    </div>
-                </div>
-                <div class="version-divider"></div>
-                <a href="/downloads/RepoChatVS2022.vsix" class="btn-download primary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download .vsix
-                </a>
-                <div class="file-name">RepoChatVS2022.vsix</div>
-            </div>
+            <label class="download-label" for="vs-version">Select your Visual Studio version</label>
+            <select class="version-select" id="vs-version">
+                <option value="2022" data-file="RepoChatVS2022.vsix" data-detail="Target 17.x &middot; .NET / 64-bit">Visual Studio 2022</option>
+                <option value="2026" data-file="RepoChatVS2026.vsix" data-detail="Target 18.x &middot; .NET / 64-bit">Visual Studio 2026</option>
+                <option value="2019" data-file="RepoChatVS2019.vsix" data-detail="Target 16.x &middot; .NET Framework">Visual Studio 2019</option>
+            </select>
+            <div class="version-detail" id="version-detail">Target 17.x &middot; .NET / 64-bit</div>
 
-            <!-- VS 2026 -->
-            <div class="version-card fade-in">
-                <div class="version-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple-400)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/><line x1="2" y1="8.5" x2="22" y2="8.5"/><line x1="12" y1="2" x2="12" y2="8.5"/></svg>
-                </div>
-                <h2>VS 2026</h2>
-                <p class="vs-year">Visual Studio 2026</p>
-                <div class="version-meta">
-                    <div class="version-meta-row">
-                        <span class="label">Target</span>
-                        <span class="value">18.x</span>
-                    </div>
-                    <div class="version-meta-row">
-                        <span class="label">Framework</span>
-                        <span class="value">.NET / 64-bit</span>
-                    </div>
-                </div>
-                <div class="version-divider"></div>
-                <a href="/downloads/RepoChatVS2026.vsix" class="btn-download secondary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download .vsix
-                </a>
-                <div class="file-name">RepoChatVS2026.vsix</div>
-            </div>
-
+            <a href="/downloads/RepoChatVS2022.vsix" class="btn-download" id="download-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download .vsix
+            </a>
+            <div class="file-name" id="file-name">RepoChatVS2022.vsix</div>
         </div>
     </div>
 </section>
@@ -704,9 +595,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.08 });
     document.querySelectorAll('.fade-in').forEach(function (el) { observer.observe(el); });
 
+    // Theme toggle
     document.getElementById('theme-toggle').addEventListener('click', function () {
         var isLight = document.documentElement.classList.toggle('light');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    });
+
+    // Version chooser
+    var select = document.getElementById('vs-version');
+    var btn = document.getElementById('download-btn');
+    var detail = document.getElementById('version-detail');
+    var fileName = document.getElementById('file-name');
+
+    select.addEventListener('change', function () {
+        var opt = select.options[select.selectedIndex];
+        var file = opt.getAttribute('data-file');
+        btn.href = '/downloads/' + file;
+        detail.textContent = opt.getAttribute('data-detail');
+        fileName.textContent = file;
     });
 });
 </script>

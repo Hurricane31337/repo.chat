@@ -727,9 +727,9 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#showcase">Showcase</a></li>
-            <li><a href="https://marketplace.visualstudio.com" class="nav-cta">
+            <li><a href="/download" class="nav-cta">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Install Extension
+                Download
             </a></li>
         </ul>
     </div>
@@ -752,9 +752,9 @@
                 Chat with your repository, auto-fix errors, and design UIs interactively.
             </p>
             <div class="hero-actions">
-                <a href="https://marketplace.visualstudio.com" class="btn-primary">
+                <a href="/download" class="btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Install Free Extension
+                    Download Free Extension
                 </a>
                 <a href="#features" class="btn-secondary">
                     See What It Does
@@ -992,7 +992,7 @@
             <div class="step">
                 <div class="step-number">1</div>
                 <h3>Install the Extension</h3>
-                <p>Download Repo Chat from the Visual Studio Marketplace. Compatible with VS 2019, 2022, and 2026.</p>
+                <p>Download the right Repo Chat version for your Visual Studio. Compatible with VS 2019, 2022, and 2026.</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
@@ -1025,9 +1025,9 @@
             <h2>Ready to code smarter?</h2>
             <p>Install Repo Chat for free and bring AI-powered vibe coding to your Visual Studio workflow today.</p>
             <div class="hero-actions">
-                <a href="https://marketplace.visualstudio.com" class="btn-primary">
+                <a href="/download" class="btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Install for Visual Studio
+                    Download for Visual Studio
                 </a>
             </div>
         </div>
@@ -1042,7 +1042,7 @@
             &copy; <?php echo date('Y'); ?> Repo Chat
         </div>
         <ul class="footer-links">
-            <li><a href="https://marketplace.visualstudio.com">Marketplace</a></li>
+            <li><a href="/download">Download</a></li>
             <li><a href="mailto:support@repo.chat">Contact</a></li>
         </ul>
     </div>

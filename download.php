@@ -217,6 +217,8 @@
             border: 1px solid var(--border-card);
             padding: 48px 40px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         .download-card-icon {
             width: 64px; height: 64px;
@@ -317,6 +319,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             overflow: hidden;
+            position: relative;
         }
         .install-card-header {
             padding: 24px 32px;
@@ -472,11 +475,125 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ── Cursor spotlight ── */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .cursor-glow.active { opacity: 1; }
+        :root.light .cursor-glow {
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.10) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
+        }
+
+        /* ── 3D tilt cards ── */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .tilt-card .tilt-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,0.06) 0%, transparent 60%);
+            z-index: 2;
+        }
+        :root.light .tilt-card .tilt-shine {
+            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(147,51,234,0.05) 0%, transparent 60%);
+        }
+
+        /* ── Floating particles ── */
+        .particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Scroll progress bar ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple-600), #22d3ee);
+            z-index: 999;
+            width: 0%;
+            transition: none;
+        }
+
+        /* ── Hack mode terminal overlay ── */
+        .hack-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hack-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .hack-terminal {
+            max-width: 700px;
+            width: 90%;
+            color: #4ade80;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+        }
+        .hack-terminal .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            background: #4ade80;
+            vertical-align: text-bottom;
+            animation: blink-cursor 0.8s step-end infinite;
+        }
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        /* ── Logo spin easter egg ── */
+        @keyframes logo-spin-bounce {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(360deg) scale(1.3); }
+            50% { transform: rotate(720deg) scale(0.8); }
+            75% { transform: rotate(1080deg) scale(1.15); }
+            100% { transform: rotate(1440deg) scale(1); }
+        }
+        .logo-spin .logo-icon {
+            animation: logo-spin-bounce 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
     </style>
 </head>
 <body>
 
 <div class="bg-glow"></div>
+<div class="cursor-glow" id="cursor-glow"></div>
+<canvas class="particles-canvas" id="particles"></canvas>
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
 
 <!-- Theme toggle -->
 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
@@ -588,6 +705,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+    /* ── Fade-in on scroll ── */
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -595,13 +714,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.08 });
     document.querySelectorAll('.fade-in').forEach(function (el) { observer.observe(el); });
 
-    // Theme toggle
+    /* ── Theme toggle ── */
     document.getElementById('theme-toggle').addEventListener('click', function () {
         var isLight = document.documentElement.classList.toggle('light');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // Version chooser
+    /* ── Version chooser ── */
     var select = document.getElementById('vs-version');
     var btn = document.getElementById('download-btn');
     var detail = document.getElementById('version-detail');
@@ -613,6 +732,281 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.href = '/downloads/' + file;
         detail.textContent = opt.getAttribute('data-detail');
         fileName.textContent = file;
+    });
+
+    /* ── Cursor spotlight ── */
+    var glow = document.getElementById('cursor-glow');
+    var mouseX = -1000, mouseY = -1000, glowX = -1000, glowY = -1000;
+    var glowActive = false;
+
+    document.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!glowActive) {
+            glowActive = true;
+            glow.classList.add('active');
+        }
+    });
+    document.addEventListener('mouseleave', function () {
+        glowActive = false;
+        glow.classList.remove('active');
+    });
+
+    (function animateGlow() {
+        glowX += (mouseX - glowX) * 0.12;
+        glowY += (mouseY - glowY) * 0.12;
+        glow.style.left = glowX + 'px';
+        glow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    })();
+
+    /* ── Scroll progress bar ── */
+    var progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    /* ── Scroll parallax for background glow ── */
+    var bgGlow = document.querySelector('.bg-glow');
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        bgGlow.style.transform = 'translateY(' + (-scrollTop * 0.08) + 'px)';
+    }, { passive: true });
+
+    /* ── 3D Tilt on cards ── */
+    var tiltTargets = document.querySelectorAll('.download-card, .install-card');
+    tiltTargets.forEach(function (card) {
+        var shine = document.createElement('div');
+        shine.className = 'tilt-shine';
+        card.appendChild(shine);
+        card.classList.add('tilt-card');
+
+        card.addEventListener('mousemove', function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+            var rotateX = ((y - centerY) / centerY) * -6;
+            var rotateY = ((x - centerX) / centerX) * 6;
+
+            card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+            shine.style.opacity = '1';
+            shine.style.setProperty('--shine-x', ((x / rect.width) * 100) + '%');
+            shine.style.setProperty('--shine-y', ((y / rect.height) * 100) + '%');
+        });
+
+        card.addEventListener('mouseleave', function () {
+            card.style.transform = '';
+            shine.style.opacity = '0';
+        });
+    });
+
+    /* ── Floating particles ── */
+    var canvas = document.getElementById('particles');
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var PARTICLE_COUNT = 60;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function isLightTheme() {
+        return document.documentElement.classList.contains('light');
+    }
+
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            size: Math.random() * 2.5 + 0.8,
+            speedX: (Math.random() - 0.5) * 0.3,
+            speedY: (Math.random() - 0.5) * 0.3,
+            opacity: Math.random() * 0.5 + 0.15,
+            hue: Math.random() > 0.5 ? 270 : 220
+        });
+    }
+
+    (function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var light = isLightTheme();
+
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+
+            var dx = p.x - mouseX;
+            var dy = p.y - mouseY;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+                var force = (150 - dist) / 150;
+                p.x += (dx / dist) * force * 2;
+                p.y += (dy / dist) * force * 2;
+            }
+
+            var alpha = light ? p.opacity * 0.7 : p.opacity;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'hsla(' + p.hue + ', 70%, ' + (light ? '45%' : '60%') + ', ' + alpha + ')';
+            ctx.fill();
+        }
+
+        for (var i = 0; i < particles.length; i++) {
+            for (var j = i + 1; j < particles.length; j++) {
+                var dx = particles[i].x - particles[j].x;
+                var dy = particles[i].y - particles[j].y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    var lineAlpha = (1 - dist / 120) * (light ? 0.08 : 0.08);
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = 'rgba(147, 51, 234, ' + lineAlpha + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animateParticles);
+    })();
+
+    /* ── Click ripple effect ── */
+    document.addEventListener('click', function (e) {
+        var ripple = document.createElement('div');
+        ripple.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;z-index:9998;' +
+            'width:0;height:0;left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
+            'border:2px solid rgba(147,51,234,0.3);transform:translate(-50%,-50%);' +
+            'transition:width 0.6s ease-out,height 0.6s ease-out,opacity 0.6s ease-out;opacity:1;';
+        document.body.appendChild(ripple);
+
+        requestAnimationFrame(function () {
+            ripple.style.width = '200px';
+            ripple.style.height = '200px';
+            ripple.style.opacity = '0';
+        });
+
+        setTimeout(function () { ripple.remove(); }, 700);
+    });
+
+    /* ── Secret word "hack" → Terminal takeover ── */
+    var secretBuffer = '';
+    var hackOverlay = document.getElementById('hack-overlay');
+    var hackTerminal = document.getElementById('hack-terminal');
+
+    document.addEventListener('keydown', function (e) {
+        if (hackOverlay.classList.contains('active')) return;
+        if (e.key.length === 1) {
+            secretBuffer += e.key.toLowerCase();
+            if (secretBuffer.length > 10) secretBuffer = secretBuffer.slice(-10);
+            if (secretBuffer.endsWith('hack')) {
+                secretBuffer = '';
+                triggerHack();
+            }
+        }
+    });
+
+    function triggerHack() {
+        hackOverlay.classList.add('active');
+        hackTerminal.innerHTML = '';
+
+        var lines = [
+            '> Analyzing website and VS extension code...',
+            '> Scanning repo.chat for analytics scripts... <span style="color:#4ade80">CLEAN</span>',
+            '> Scanning extension binary for telemetry... <span style="color:#4ade80">CLEAN</span>',
+            '> Outbound network calls: <span style="color:#fbbf24">only your configured LLM API</span>',
+            '> Hidden tracking endpoints: <span style="color:#f87171">0</span>',
+            '> Data collection services: <span style="color:#f87171">NONE</span>',
+            '> Fingerprinting or device IDs: <span style="color:#f87171">NONE</span>',
+            '> ',
+            '> <span style="color:#22d3ee">VERDICT: 100% clean. Your code never leaves your machine.</span>',
+            '> <span style="color:#c084fc">Nothing to hide — that\'s the whole point.</span>',
+            '> ',
+            '> <span style="color:#64748b">Press any key to exit...</span>'
+        ];
+
+        var lineIndex = 0;
+        function typeLine() {
+            if (lineIndex >= lines.length) {
+                document.addEventListener('keydown', dismissHack, { once: true });
+                hackOverlay.addEventListener('click', dismissHack, { once: true });
+                return;
+            }
+
+            var line = lines[lineIndex];
+            var span = document.createElement('div');
+            hackTerminal.appendChild(span);
+
+            var plainText = line.replace(/<[^>]*>/g, '');
+            var charIndex = 0;
+
+            function typeChar() {
+                if (charIndex < plainText.length) {
+                    charIndex++;
+                    span.innerHTML = line.substring(0, findHtmlIndex(line, charIndex)) + '<span class="cursor-blink"></span>';
+                    setTimeout(typeChar, 15 + Math.random() * 25);
+                } else {
+                    span.innerHTML = line;
+                    lineIndex++;
+                    setTimeout(typeLine, 100);
+                }
+            }
+            typeChar();
+        }
+        typeLine();
+    }
+
+    function findHtmlIndex(html, plainIndex) {
+        var plain = 0, i = 0;
+        while (i < html.length && plain < plainIndex) {
+            if (html[i] === '<') {
+                while (i < html.length && html[i] !== '>') i++;
+                i++;
+            } else {
+                plain++;
+                i++;
+            }
+        }
+        return i;
+    }
+
+    function dismissHack() {
+        hackOverlay.classList.remove('active');
+        setTimeout(function () { hackTerminal.innerHTML = ''; }, 300);
+    }
+
+    /* ── Logo click × 3 → Logo spin ── */
+    var logoClickCount = 0;
+    var logoTimer = null;
+    var logoEl = document.querySelector('.logo');
+
+    logoEl.addEventListener('click', function (e) {
+        e.preventDefault();
+        logoClickCount++;
+
+        clearTimeout(logoTimer);
+        logoTimer = setTimeout(function () { logoClickCount = 0; }, 2000);
+
+        if (logoClickCount >= 3) {
+            logoClickCount = 0;
+            logoEl.classList.add('logo-spin');
+            logoEl.addEventListener('animationend', function () {
+                logoEl.classList.remove('logo-spin');
+            }, { once: true });
+        }
     });
 });
 </script>

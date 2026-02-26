@@ -875,14 +875,14 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.06) 0%, rgba(59, 130, 246, 0.03) 30%, transparent 70%);
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.12) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
             transform: translate(-50%, -50%);
             transition: opacity 0.3s;
             opacity: 0;
         }
         .cursor-glow.active { opacity: 1; }
         :root.light .cursor-glow {
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.04) 0%, rgba(59, 130, 246, 0.02) 30%, transparent 70%);
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.10) 0%, rgba(59, 130, 246, 0.06) 30%, transparent 70%);
         }
 
         /* ── 3D tilt cards ── */
@@ -927,20 +927,6 @@
             transition: none;
         }
 
-        /* ── Matrix rain (Konami) ── */
-        .matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10000;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .matrix-canvas.active { opacity: 1; }
-
         /* ── Hack mode terminal overlay ── */
         .hack-overlay {
             position: fixed;
@@ -979,19 +965,16 @@
             50% { opacity: 0; }
         }
 
-        /* ── Gravity drop easter egg ── */
-        @keyframes drop-bounce {
-            0% { transform: translateY(0); }
-            20% { transform: translateY(calc(100vh - 100%)); }
-            40% { transform: translateY(calc(100vh - 200%)); }
-            55% { transform: translateY(calc(100vh - 100%)); }
-            70% { transform: translateY(calc(100vh - 140%)); }
-            85% { transform: translateY(calc(100vh - 100%)); }
-            92% { transform: translateY(calc(100vh - 110%)); }
-            100% { transform: translateY(calc(100vh - 100%)); }
+        /* ── Logo spin easter egg ── */
+        @keyframes logo-spin-bounce {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(360deg) scale(1.3); }
+            50% { transform: rotate(720deg) scale(0.8); }
+            75% { transform: rotate(1080deg) scale(1.15); }
+            100% { transform: rotate(1440deg) scale(1); }
         }
-        .gravity-drop {
-            animation: drop-bounce 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        .logo-spin .logo-icon {
+            animation: logo-spin-bounce 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* ── Step number count-up glow ── */
@@ -1011,7 +994,6 @@
 <div class="cursor-glow" id="cursor-glow"></div>
 <canvas class="particles-canvas" id="particles"></canvas>
 <div class="scroll-progress" id="scroll-progress"></div>
-<canvas class="matrix-canvas" id="matrix-canvas"></canvas>
 <div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
 
 <!-- Theme toggle -->
@@ -1489,7 +1471,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var canvas = document.getElementById('particles');
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var PARTICLE_COUNT = 50;
+    var PARTICLE_COUNT = 60;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -1506,10 +1488,10 @@ document.addEventListener('DOMContentLoaded', function () {
         particles.push({
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            size: Math.random() * 2 + 0.5,
+            size: Math.random() * 2.5 + 0.8,
             speedX: (Math.random() - 0.5) * 0.3,
             speedY: (Math.random() - 0.5) * 0.3,
-            opacity: Math.random() * 0.4 + 0.1,
+            opacity: Math.random() * 0.5 + 0.15,
             hue: Math.random() > 0.5 ? 270 : 220
         });
     }
@@ -1538,10 +1520,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 p.y += (dy / dist) * force * 2;
             }
 
-            var alpha = light ? p.opacity * 0.4 : p.opacity;
+            var alpha = light ? p.opacity * 0.7 : p.opacity;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = 'hsla(' + p.hue + ', 70%, 60%, ' + alpha + ')';
+            ctx.fillStyle = 'hsla(' + p.hue + ', 70%, ' + (light ? '45%' : '60%') + ', ' + alpha + ')';
             ctx.fill();
         }
 
@@ -1552,7 +1534,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var dy = particles[i].y - particles[j].y;
                 var dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 120) {
-                    var lineAlpha = (1 - dist / 120) * (light ? 0.03 : 0.06);
+                    var lineAlpha = (1 - dist / 120) * (light ? 0.08 : 0.08);
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -1594,76 +1576,7 @@ document.addEventListener('DOMContentLoaded', function () {
        EASTER EGGS
        ══════════════════════════════════════ */
 
-    /* ── 1. Konami Code → Matrix rain ── */
-    var konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    var konamiIndex = 0;
-    var matrixCanvas = document.getElementById('matrix-canvas');
-    var matrixCtx = matrixCanvas.getContext('2d');
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === konamiSequence[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konamiSequence.length) {
-                konamiIndex = 0;
-                triggerMatrix();
-            }
-        } else {
-            konamiIndex = 0;
-        }
-    });
-
-    function triggerMatrix() {
-        matrixCanvas.width = window.innerWidth;
-        matrixCanvas.height = window.innerHeight;
-        matrixCanvas.classList.add('active');
-
-        var columns = Math.floor(matrixCanvas.width / 16);
-        var drops = [];
-        for (var i = 0; i < columns; i++) {
-            drops[i] = Math.floor(Math.random() * -40);
-        }
-
-        var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモ01{}();=>repo.chat';
-        var frameCount = 0;
-        var maxFrames = 300;
-
-        function drawMatrix() {
-            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
-            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-            matrixCtx.fillStyle = '#4ade80';
-            matrixCtx.font = '14px JetBrains Mono, monospace';
-
-            for (var i = 0; i < drops.length; i++) {
-                var char = chars[Math.floor(Math.random() * chars.length)];
-                var x = i * 16;
-                var y = drops[i] * 16;
-
-                if (Math.random() > 0.97) {
-                    matrixCtx.fillStyle = '#22d3ee';
-                } else {
-                    matrixCtx.fillStyle = '#4ade80';
-                }
-                matrixCtx.fillText(char, x, y);
-
-                if (y > matrixCanvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-
-            frameCount++;
-            if (frameCount < maxFrames) {
-                requestAnimationFrame(drawMatrix);
-            } else {
-                matrixCanvas.classList.remove('active');
-                matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            }
-        }
-        drawMatrix();
-    }
-
-    /* ── 2. Secret word "hack" → Terminal takeover ── */
+    /* ── 1. Secret word "hack" → Terminal takeover ── */
     var secretBuffer = '';
     var hackOverlay = document.getElementById('hack-overlay');
     var hackTerminal = document.getElementById('hack-terminal');
@@ -1685,14 +1598,16 @@ document.addEventListener('DOMContentLoaded', function () {
         hackTerminal.innerHTML = '';
 
         var lines = [
-            '> Establishing secure connection to repo.chat...',
-            '> Bypassing Visual Studio telemetry... <span style="color:#fbbf24">BLOCKED</span>',
-            '> Analytics modules found: <span style="color:#f87171">0</span>',
-            '> Tracking endpoints found: <span style="color:#f87171">0</span>',
+            '> Analyzing website and VS extension code...',
+            '> Scanning repo.chat for analytics scripts... <span style="color:#4ade80">CLEAN</span>',
+            '> Scanning extension binary for telemetry... <span style="color:#4ade80">CLEAN</span>',
+            '> Outbound network calls: <span style="color:#fbbf24">only your configured LLM API</span>',
+            '> Hidden tracking endpoints: <span style="color:#f87171">0</span>',
             '> Data collection services: <span style="color:#f87171">NONE</span>',
+            '> Fingerprinting or device IDs: <span style="color:#f87171">NONE</span>',
             '> ',
-            '> <span style="color:#22d3ee">STATUS: Your code stays on YOUR machine.</span>',
-            '> <span style="color:#c084fc">Repo Chat — zero tracking, zero analytics, always.</span>',
+            '> <span style="color:#22d3ee">VERDICT: 100% clean. Your code never leaves your machine.</span>',
+            '> <span style="color:#c084fc">Nothing to hide — that\'s the whole point.</span>',
             '> ',
             '> <span style="color:#64748b">Press any key to exit...</span>'
         ];
@@ -1748,7 +1663,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () { hackTerminal.innerHTML = ''; }, 300);
     }
 
-    /* ── 3. Logo click × 7 → Gravity drop ── */
+    /* ── 3. Logo click × 3 → Logo spin ── */
     var logoClickCount = 0;
     var logoTimer = null;
     var logoEl = document.querySelector('.logo');
@@ -1760,33 +1675,14 @@ document.addEventListener('DOMContentLoaded', function () {
         clearTimeout(logoTimer);
         logoTimer = setTimeout(function () { logoClickCount = 0; }, 2000);
 
-        if (logoClickCount >= 7) {
+        if (logoClickCount >= 3) {
             logoClickCount = 0;
-            triggerGravity();
+            logoEl.classList.add('logo-spin');
+            logoEl.addEventListener('animationend', function () {
+                logoEl.classList.remove('logo-spin');
+            }, { once: true });
         }
     });
-
-    function triggerGravity() {
-        var allSections = document.querySelectorAll('section, nav, footer, .theme-toggle');
-        var delay = 0;
-
-        allSections.forEach(function (el) {
-            el.style.position = 'relative';
-            el.style.zIndex = '1';
-            setTimeout(function () {
-                el.classList.add('gravity-drop');
-            }, delay);
-            delay += 80;
-        });
-
-        setTimeout(function () {
-            allSections.forEach(function (el) {
-                el.classList.remove('gravity-drop');
-                el.style.position = '';
-                el.style.zIndex = '';
-            });
-        }, delay + 2000);
-    }
 
     /* ── 4. Click ripple effect ── */
     document.addEventListener('click', function (e) {
@@ -1809,21 +1705,22 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ── 5. Magnetic nav CTA button ── */
     var navCta = document.querySelector('.nav-cta');
     if (navCta) {
-        navCta.parentElement.addEventListener('mousemove', function (e) {
+        navCta.style.transition = 'transform 0.25s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s';
+        document.querySelector('nav').addEventListener('mousemove', function (e) {
             var rect = navCta.getBoundingClientRect();
             var cx = rect.left + rect.width / 2;
             var cy = rect.top + rect.height / 2;
             var dx = e.clientX - cx;
             var dy = e.clientY - cy;
             var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                var pull = (100 - dist) / 100;
-                navCta.style.transform = 'translate(' + (dx * pull * 0.3) + 'px,' + (dy * pull * 0.3) + 'px)';
+            if (dist < 200) {
+                var pull = Math.pow((200 - dist) / 200, 2);
+                navCta.style.transform = 'translate(' + (dx * pull * 0.35) + 'px,' + (dy * pull * 0.35) + 'px)';
             } else {
                 navCta.style.transform = '';
             }
         });
-        navCta.parentElement.addEventListener('mouseleave', function () {
+        document.querySelector('nav').addEventListener('mouseleave', function () {
             navCta.style.transform = '';
         });
     }

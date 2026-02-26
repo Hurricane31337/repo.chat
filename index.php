@@ -506,10 +506,11 @@
             background: var(--bg-card);
             border: 1px solid var(--border-card);
             transition: border-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         .feature-card:hover {
             border-color: var(--border-card-hover);
-            transform: translateY(-4px);
         }
         .feature-icon {
             width: 48px;
@@ -699,6 +700,8 @@
             border-radius: 24px;
             background: var(--bg-quote);
             border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
         }
         .quote-card blockquote {
             font-size: 1.4rem;
@@ -863,11 +866,153 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ── Cursor spotlight ── */
+        .cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.06) 0%, rgba(59, 130, 246, 0.03) 30%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        .cursor-glow.active { opacity: 1; }
+        :root.light .cursor-glow {
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.04) 0%, rgba(59, 130, 246, 0.02) 30%, transparent 70%);
+        }
+
+        /* ── 3D tilt cards ── */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .tilt-card .tilt-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(255,255,255,0.06) 0%, transparent 60%);
+            z-index: 2;
+        }
+        :root.light .tilt-card .tilt-shine {
+            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(147,51,234,0.05) 0%, transparent 60%);
+        }
+
+        /* ── Floating particles ── */
+        .particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Scroll progress bar ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple-600), var(--cyan-400));
+            z-index: 999;
+            width: 0%;
+            transition: none;
+        }
+
+        /* ── Matrix rain (Konami) ── */
+        .matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .matrix-canvas.active { opacity: 1; }
+
+        /* ── Hack mode terminal overlay ── */
+        .hack-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hack-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .hack-terminal {
+            max-width: 700px;
+            width: 90%;
+            color: #4ade80;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            text-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+        }
+        .hack-terminal .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            background: #4ade80;
+            vertical-align: text-bottom;
+            animation: blink-cursor 0.8s step-end infinite;
+        }
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        /* ── Gravity drop easter egg ── */
+        @keyframes drop-bounce {
+            0% { transform: translateY(0); }
+            20% { transform: translateY(calc(100vh - 100%)); }
+            40% { transform: translateY(calc(100vh - 200%)); }
+            55% { transform: translateY(calc(100vh - 100%)); }
+            70% { transform: translateY(calc(100vh - 140%)); }
+            85% { transform: translateY(calc(100vh - 100%)); }
+            92% { transform: translateY(calc(100vh - 110%)); }
+            100% { transform: translateY(calc(100vh - 100%)); }
+        }
+        .gravity-drop {
+            animation: drop-bounce 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+
+        /* ── Step number count-up glow ── */
+        .step-number.counted {
+            animation: step-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes step-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
 <div class="bg-glow"></div>
+<div class="cursor-glow" id="cursor-glow"></div>
+<canvas class="particles-canvas" id="particles"></canvas>
+<div class="scroll-progress" id="scroll-progress"></div>
+<canvas class="matrix-canvas" id="matrix-canvas"></canvas>
+<div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
 
 <!-- Theme toggle -->
 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
@@ -1246,9 +1391,11 @@
     </div>
 </footer>
 
-<!-- Scroll animations & theme toggle -->
+<!-- Scroll animations, interactions & easter eggs -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+    /* ── Fade-in on scroll ── */
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {
@@ -1260,10 +1407,427 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(el);
     });
 
+    /* ── Theme toggle ── */
     document.getElementById('theme-toggle').addEventListener('click', function () {
         var isLight = document.documentElement.classList.toggle('light');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
+
+    /* ── Cursor spotlight ── */
+    var glow = document.getElementById('cursor-glow');
+    var mouseX = -1000, mouseY = -1000, glowX = -1000, glowY = -1000;
+    var glowActive = false;
+
+    document.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!glowActive) {
+            glowActive = true;
+            glow.classList.add('active');
+        }
+    });
+    document.addEventListener('mouseleave', function () {
+        glowActive = false;
+        glow.classList.remove('active');
+    });
+
+    (function animateGlow() {
+        glowX += (mouseX - glowX) * 0.12;
+        glowY += (mouseY - glowY) * 0.12;
+        glow.style.left = glowX + 'px';
+        glow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    })();
+
+    /* ── Scroll progress bar ── */
+    var progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    /* ── Scroll parallax for background glow ── */
+    var bgGlow = document.querySelector('.bg-glow');
+    window.addEventListener('scroll', function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var shift = scrollTop * 0.08;
+        bgGlow.style.transform = 'translateY(' + (-shift) + 'px)';
+    }, { passive: true });
+
+    /* ── 3D Tilt on cards ── */
+    var tiltTargets = document.querySelectorAll('.feature-card, .quote-card, .screenshot-frame');
+    tiltTargets.forEach(function (card) {
+        var shine = document.createElement('div');
+        shine.className = 'tilt-shine';
+        card.appendChild(shine);
+        card.classList.add('tilt-card');
+
+        card.addEventListener('mousemove', function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            var centerX = rect.width / 2;
+            var centerY = rect.height / 2;
+            var rotateX = ((y - centerY) / centerY) * -6;
+            var rotateY = ((x - centerX) / centerX) * 6;
+
+            card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+            shine.style.opacity = '1';
+            shine.style.setProperty('--shine-x', ((x / rect.width) * 100) + '%');
+            shine.style.setProperty('--shine-y', ((y / rect.height) * 100) + '%');
+        });
+
+        card.addEventListener('mouseleave', function () {
+            card.style.transform = '';
+            shine.style.opacity = '0';
+        });
+    });
+
+    /* ── Floating particles ── */
+    var canvas = document.getElementById('particles');
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var PARTICLE_COUNT = 50;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function isLightTheme() {
+        return document.documentElement.classList.contains('light');
+    }
+
+    for (var i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            size: Math.random() * 2 + 0.5,
+            speedX: (Math.random() - 0.5) * 0.3,
+            speedY: (Math.random() - 0.5) * 0.3,
+            opacity: Math.random() * 0.4 + 0.1,
+            hue: Math.random() > 0.5 ? 270 : 220
+        });
+    }
+
+    (function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var light = isLightTheme();
+
+        for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+
+            /* Repel from cursor */
+            var dx = p.x - mouseX;
+            var dy = p.y - mouseY;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+                var force = (150 - dist) / 150;
+                p.x += (dx / dist) * force * 2;
+                p.y += (dy / dist) * force * 2;
+            }
+
+            var alpha = light ? p.opacity * 0.4 : p.opacity;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'hsla(' + p.hue + ', 70%, 60%, ' + alpha + ')';
+            ctx.fill();
+        }
+
+        /* Draw faint lines between nearby particles */
+        for (var i = 0; i < particles.length; i++) {
+            for (var j = i + 1; j < particles.length; j++) {
+                var dx = particles[i].x - particles[j].x;
+                var dy = particles[i].y - particles[j].y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    var lineAlpha = (1 - dist / 120) * (light ? 0.03 : 0.06);
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = 'rgba(147, 51, 234, ' + lineAlpha + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animateParticles);
+    })();
+
+    /* ── Step number count-up animation ── */
+    var stepNums = document.querySelectorAll('.step-number');
+    var stepObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                var el = entry.target;
+                var target = parseInt(el.textContent);
+                el.textContent = '0';
+                el.classList.add('counted');
+                var delay = (target - 1) * 200;
+                setTimeout(function () {
+                    var count = 0;
+                    var interval = setInterval(function () {
+                        count++;
+                        el.textContent = count;
+                        if (count >= target) clearInterval(interval);
+                    }, 80);
+                }, delay);
+                stepObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    stepNums.forEach(function (el) { stepObserver.observe(el); });
+
+    /* ══════════════════════════════════════
+       EASTER EGGS
+       ══════════════════════════════════════ */
+
+    /* ── 1. Konami Code → Matrix rain ── */
+    var konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    var konamiIndex = 0;
+    var matrixCanvas = document.getElementById('matrix-canvas');
+    var matrixCtx = matrixCanvas.getContext('2d');
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === konamiSequence[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiSequence.length) {
+                konamiIndex = 0;
+                triggerMatrix();
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    function triggerMatrix() {
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        matrixCanvas.classList.add('active');
+
+        var columns = Math.floor(matrixCanvas.width / 16);
+        var drops = [];
+        for (var i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * -40);
+        }
+
+        var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモ01{}();=>repo.chat';
+        var frameCount = 0;
+        var maxFrames = 300;
+
+        function drawMatrix() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+            matrixCtx.fillStyle = '#4ade80';
+            matrixCtx.font = '14px JetBrains Mono, monospace';
+
+            for (var i = 0; i < drops.length; i++) {
+                var char = chars[Math.floor(Math.random() * chars.length)];
+                var x = i * 16;
+                var y = drops[i] * 16;
+
+                if (Math.random() > 0.97) {
+                    matrixCtx.fillStyle = '#22d3ee';
+                } else {
+                    matrixCtx.fillStyle = '#4ade80';
+                }
+                matrixCtx.fillText(char, x, y);
+
+                if (y > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+
+            frameCount++;
+            if (frameCount < maxFrames) {
+                requestAnimationFrame(drawMatrix);
+            } else {
+                matrixCanvas.classList.remove('active');
+                matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            }
+        }
+        drawMatrix();
+    }
+
+    /* ── 2. Secret word "hack" → Terminal takeover ── */
+    var secretBuffer = '';
+    var hackOverlay = document.getElementById('hack-overlay');
+    var hackTerminal = document.getElementById('hack-terminal');
+
+    document.addEventListener('keydown', function (e) {
+        if (hackOverlay.classList.contains('active')) return;
+        if (e.key.length === 1) {
+            secretBuffer += e.key.toLowerCase();
+            if (secretBuffer.length > 10) secretBuffer = secretBuffer.slice(-10);
+            if (secretBuffer.endsWith('hack')) {
+                secretBuffer = '';
+                triggerHack();
+            }
+        }
+    });
+
+    function triggerHack() {
+        hackOverlay.classList.add('active');
+        hackTerminal.innerHTML = '';
+
+        var lines = [
+            '> Establishing secure connection to repo.chat...',
+            '> Bypassing Visual Studio telemetry... <span style="color:#fbbf24">BLOCKED</span>',
+            '> Analytics modules found: <span style="color:#f87171">0</span>',
+            '> Tracking endpoints found: <span style="color:#f87171">0</span>',
+            '> Data collection services: <span style="color:#f87171">NONE</span>',
+            '> ',
+            '> <span style="color:#22d3ee">STATUS: Your code stays on YOUR machine.</span>',
+            '> <span style="color:#c084fc">Repo Chat — zero tracking, zero analytics, always.</span>',
+            '> ',
+            '> <span style="color:#64748b">Press any key to exit...</span>'
+        ];
+
+        var lineIndex = 0;
+        function typeLine() {
+            if (lineIndex >= lines.length) {
+                document.addEventListener('keydown', dismissHack, { once: true });
+                hackOverlay.addEventListener('click', dismissHack, { once: true });
+                return;
+            }
+
+            var line = lines[lineIndex];
+            var span = document.createElement('div');
+            hackTerminal.appendChild(span);
+
+            var plainText = line.replace(/<[^>]*>/g, '');
+            var charIndex = 0;
+
+            function typeChar() {
+                if (charIndex < plainText.length) {
+                    charIndex++;
+                    span.innerHTML = line.substring(0, findHtmlIndex(line, charIndex)) + '<span class="cursor-blink"></span>';
+                    setTimeout(typeChar, 15 + Math.random() * 25);
+                } else {
+                    span.innerHTML = line;
+                    lineIndex++;
+                    setTimeout(typeLine, 100);
+                }
+            }
+            typeChar();
+        }
+        typeLine();
+    }
+
+    function findHtmlIndex(html, plainIndex) {
+        var plain = 0;
+        var i = 0;
+        while (i < html.length && plain < plainIndex) {
+            if (html[i] === '<') {
+                while (i < html.length && html[i] !== '>') i++;
+                i++;
+            } else {
+                plain++;
+                i++;
+            }
+        }
+        return i;
+    }
+
+    function dismissHack() {
+        hackOverlay.classList.remove('active');
+        setTimeout(function () { hackTerminal.innerHTML = ''; }, 300);
+    }
+
+    /* ── 3. Logo click × 7 → Gravity drop ── */
+    var logoClickCount = 0;
+    var logoTimer = null;
+    var logoEl = document.querySelector('.logo');
+
+    logoEl.addEventListener('click', function (e) {
+        e.preventDefault();
+        logoClickCount++;
+
+        clearTimeout(logoTimer);
+        logoTimer = setTimeout(function () { logoClickCount = 0; }, 2000);
+
+        if (logoClickCount >= 7) {
+            logoClickCount = 0;
+            triggerGravity();
+        }
+    });
+
+    function triggerGravity() {
+        var allSections = document.querySelectorAll('section, nav, footer, .theme-toggle');
+        var delay = 0;
+
+        allSections.forEach(function (el) {
+            el.style.position = 'relative';
+            el.style.zIndex = '1';
+            setTimeout(function () {
+                el.classList.add('gravity-drop');
+            }, delay);
+            delay += 80;
+        });
+
+        setTimeout(function () {
+            allSections.forEach(function (el) {
+                el.classList.remove('gravity-drop');
+                el.style.position = '';
+                el.style.zIndex = '';
+            });
+        }, delay + 2000);
+    }
+
+    /* ── 4. Click ripple effect ── */
+    document.addEventListener('click', function (e) {
+        var ripple = document.createElement('div');
+        ripple.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;z-index:9998;' +
+            'width:0;height:0;left:' + e.clientX + 'px;top:' + e.clientY + 'px;' +
+            'border:2px solid rgba(147,51,234,0.3);transform:translate(-50%,-50%);' +
+            'transition:width 0.6s ease-out,height 0.6s ease-out,opacity 0.6s ease-out;opacity:1;';
+        document.body.appendChild(ripple);
+
+        requestAnimationFrame(function () {
+            ripple.style.width = '200px';
+            ripple.style.height = '200px';
+            ripple.style.opacity = '0';
+        });
+
+        setTimeout(function () { ripple.remove(); }, 700);
+    });
+
+    /* ── 5. Magnetic nav CTA button ── */
+    var navCta = document.querySelector('.nav-cta');
+    if (navCta) {
+        navCta.parentElement.addEventListener('mousemove', function (e) {
+            var rect = navCta.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2;
+            var cy = rect.top + rect.height / 2;
+            var dx = e.clientX - cx;
+            var dy = e.clientY - cy;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+                var pull = (100 - dist) / 100;
+                navCta.style.transform = 'translate(' + (dx * pull * 0.3) + 'px,' + (dy * pull * 0.3) + 'px)';
+            } else {
+                navCta.style.transform = '';
+            }
+        });
+        navCta.parentElement.addEventListener('mouseleave', function () {
+            navCta.style.transform = '';
+        });
+    }
+
 });
 </script>
 

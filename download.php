@@ -11,8 +11,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download — Repo Chat for Visual Studio 2019, 2022 &amp; 2026</title>
-    <meta name="description" content="Download Repo Chat for the full Visual Studio (not VS Code). Choose your version — VS 2019, 2022, or 2026. Free, no analytics, no tracking. Enterprise ready.">
+    <title>Download — Repo Chat for Visual Studio 2026, 2022 &amp; 2019</title>
+    <meta name="description" content="Download Repo Chat for the full Visual Studio — not VS Code. Choose your version: VS 2026, 2022, or 2019. Free, no analytics, no tracking. Enterprise ready.">
     <meta name="color-scheme" content="light dark">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

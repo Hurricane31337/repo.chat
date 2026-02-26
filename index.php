@@ -11,11 +11,11 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repo Chat — Vibe Coding for Visual Studio 2019, 2022 &amp; 2026</title>
-    <meta name="description" content="Repo Chat is a free extension for the full Visual Studio (not VS Code) that brings AI-powered vibe coding directly into your IDE. Zero analytics, zero tracking — enterprise ready.">
-    <meta name="keywords" content="Visual Studio 2019, Visual Studio 2022, Visual Studio 2026, extension, AI, vibe coding, repository, chat, WinForms, WPF, enterprise, no tracking">
-    <meta property="og:title" content="Repo Chat — Vibe Coding for Visual Studio 2019, 2022 &amp; 2026">
-    <meta property="og:description" content="The only AI coding assistant built for the full Visual Studio. No analytics, no tracking — 100% enterprise ready. Free.">
+    <title>Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026</title>
+    <meta name="description" content="Repo Chat is a free extension for the full Visual Studio (not VS Code) that brings AI assisted coding directly into your IDE. Zero analytics, zero tracking — enterprise ready.">
+    <meta name="keywords" content="Visual Studio 2019, Visual Studio 2022, Visual Studio 2026, extension, AI, AI assisted coding, repository, chat, WinForms, WPF, enterprise, no tracking">
+    <meta property="og:title" content="Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026">
+    <meta property="og:description" content="The only AI coding assistant built for the full Visual Studio (not VS Code). No analytics, no tracking — 100% enterprise ready. Free.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://repo.chat">
     <meta name="color-scheme" content="light dark">
@@ -301,6 +301,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+        .hero h1 .not-vscode {
+            display: block;
+            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.4;
+            margin-top: 16px;
+            color: var(--text-label);
         }
         .hero-sub {
             font-size: 1.2rem;
@@ -903,15 +912,16 @@
         <div class="fade-in">
             <div class="hero-badge">
                 <span class="hero-badge-dot"></span>
-                For the full Visual Studio — not VS Code
+                Free &amp; enterprise ready — zero analytics, zero tracking
             </div>
             <h1>
-                <span class="gradient-text">Vibe Coding</span><br>
-                for Visual Studio
+                <span class="gradient-text">AI Assisted Coding</span><br>
+                for Visual Studio<br>
+                <span class="not-vscode">Not VS Code — the full Visual Studio</span>
             </h1>
             <p class="hero-sub">
-                The AI coding assistant built exclusively for the full Visual Studio 2019, 2022, and 2026.
-                Zero analytics, zero tracking — completely free and enterprise ready.
+                The only AI coding assistant built exclusively for Visual Studio 2019, 2022, and 2026.
+                Chat with your repository, auto-fix errors, and design UIs — directly inside the IDE your enterprise team already uses.
             </p>
             <div class="hero-actions">
                 <a href="/download" class="btn-primary">
@@ -1211,7 +1221,7 @@
     <div class="container">
         <div class="cta-inner fade-in">
             <h2>Ready to code smarter?</h2>
-            <p>Download Repo Chat for free. No analytics, no tracking, no strings attached — just AI-powered vibe coding in the full Visual Studio.</p>
+            <p>Download Repo Chat for free. No analytics, no tracking, no strings attached — AI assisted coding in the full Visual Studio.</p>
             <div class="hero-actions">
                 <a href="/download" class="btn-primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>

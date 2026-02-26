@@ -527,17 +527,17 @@
 
             <label class="download-label" for="vs-version">Select your Visual Studio version</label>
             <select class="version-select" id="vs-version">
-                <option value="2022" data-file="RepoChatVS2022.vsix" data-detail="Target 17.x &middot; .NET / 64-bit">Visual Studio 2022</option>
                 <option value="2026" data-file="RepoChatVS2026.vsix" data-detail="Target 18.x &middot; .NET / 64-bit">Visual Studio 2026</option>
+                <option value="2022" data-file="RepoChatVS2022.vsix" data-detail="Target 17.x &middot; .NET / 64-bit">Visual Studio 2022</option>
                 <option value="2019" data-file="RepoChatVS2019.vsix" data-detail="Target 16.x &middot; .NET Framework">Visual Studio 2019</option>
             </select>
-            <div class="version-detail" id="version-detail">Target 17.x &middot; .NET / 64-bit</div>
+            <div class="version-detail" id="version-detail">Target 18.x &middot; .NET / 64-bit</div>
 
-            <a href="/downloads/RepoChatVS2022.vsix" class="btn-download" id="download-btn">
+            <a href="/downloads/RepoChatVS2026.vsix" class="btn-download" id="download-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Download .vsix
             </a>
-            <div class="file-name" id="file-name">RepoChatVS2022.vsix</div>
+            <div class="file-name" id="file-name">RepoChatVS2026.vsix</div>
         </div>
     </div>
 </section>

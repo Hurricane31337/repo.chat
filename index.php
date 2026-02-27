@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script>
-    (function() {
-        var s = localStorage.getItem('theme');
-        if (s === 'light' || (!s && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            document.documentElement.classList.add('light');
-        }
-    })();
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026</title>
-    <meta name="description" content="Repo Chat is a free extension for the full Visual Studio (not VS Code) that brings AI assisted coding directly into your IDE. Zero analytics, zero tracking — enterprise ready.">
-    <meta name="keywords" content="Visual Studio 2019, Visual Studio 2022, Visual Studio 2026, extension, AI, AI assisted coding, repository, chat, WinForms, WPF, enterprise, no tracking">
-    <meta property="og:title" content="Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026">
-    <meta property="og:description" content="The only AI coding assistant built for the full Visual Studio (not VS Code). No analytics, no tracking — 100% enterprise ready. Free.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://repo.chat">
-    <meta name="color-scheme" content="light dark">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+<?php
+$pageTitle       = 'Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026';
+$pageDescription = 'Repo Chat is a free extension for the full Visual Studio (not VS Code) that brings AI assisted coding directly into your IDE. Zero analytics, zero tracking — enterprise ready.';
+$pageKeywords    = 'Visual Studio 2019, Visual Studio 2022, Visual Studio 2026, extension, AI, AI assisted coding, repository, chat, WinForms, WPF, enterprise, no tracking';
+$ogTitle         = 'Repo Chat — AI Assisted Coding for Visual Studio 2019, 2022 &amp; 2026';
+$ogDescription   = 'The only AI coding assistant built for the full Visual Studio (not VS Code). No analytics, no tracking — 100% enterprise ready. Free.';
+$ogType          = 'website';
+$ogUrl           = 'https://repo.chat';
+require __DIR__ . '/includes/header.php';
+?>
     <style>
         html { scroll-behavior: smooth; }
 
@@ -600,60 +585,7 @@
 </head>
 <body>
 
-<div class="bg-glow"></div>
-<canvas class="particles-canvas" id="particles"></canvas>
-<div class="scroll-progress" id="scroll-progress"></div>
-<div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
-
-<!-- Navigation -->
-<nav>
-    <div class="container">
-        <a href="/" class="logo">
-            <div class="logo-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-            </div>
-            Repo Chat
-        </a>
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#showcase">Showcase</a></li>
-            <li><a href="/download" class="nav-cta">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download
-            </a></li>
-        </ul>
-        <div class="nav-actions">
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
-                <!-- Dark mode: show lightbulb outline (off) -->
-                <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 18h6"/><path d="M10 22h4"/>
-                    <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-                </svg>
-                <!-- Light mode: show lightbulb filled (on) -->
-                <svg class="icon-light" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 18h6" fill="none" stroke-width="2"/><path d="M10 22h4" fill="none" stroke-width="2"/>
-                    <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-                </svg>
-            </button>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
-                <svg class="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-        </div>
-    </div>
-</nav>
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-    <a href="#features">Features</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#showcase">Showcase</a>
-    <a href="/download" class="nav-cta-mobile">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download
-    </a>
-</div>
+<?php require __DIR__ . '/includes/nav.php'; ?>
 
 <!-- Hero -->
 <section class="hero">
@@ -981,21 +913,8 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="footer-left">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            &copy; <?php echo date('Y'); ?> Repo Chat
-        </div>
-        <ul class="footer-links">
-            <li><a href="/download">Download</a></li>
-            <li><a href="mailto:support@repo.chat">Contact</a></li>
-        </ul>
-    </div>
-</footer>
+<?php require __DIR__ . '/includes/footer.php'; ?>
 
-<script src="/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 

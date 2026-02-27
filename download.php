@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script>
-    (function() {
-        var s = localStorage.getItem('theme');
-        if (s === 'light' || (!s && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            document.documentElement.classList.add('light');
-        }
-    })();
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download — Repo Chat for Visual Studio 2026, 2022 &amp; 2019</title>
-    <meta name="description" content="Download Repo Chat for the full Visual Studio — not VS Code. Choose your version: VS 2026, 2022, or 2019. Free, no analytics, no tracking. Enterprise ready.">
-    <meta name="color-scheme" content="light dark">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+<?php
+$pageTitle       = 'Download — Repo Chat for Visual Studio 2026, 2022 &amp; 2019';
+$pageDescription = 'Download Repo Chat for the full Visual Studio — not VS Code. Choose your version: VS 2026, 2022, or 2019. Free, no analytics, no tracking. Enterprise ready.';
+require __DIR__ . '/includes/header.php';
+?>
     <style>
         /* ── Page Header ── */
         .page-header {
@@ -218,10 +203,6 @@
         }
 
         /* ── Page-specific responsive ── */
-        @media (max-width: 800px) {
-            .nav-links { display: none; }
-            .nav-toggle { display: flex; }
-        }
         @media (max-width: 600px) {
             .page-header { padding: 130px 0 48px; }
             .download-card { padding: 36px 24px; }
@@ -232,50 +213,7 @@
 </head>
 <body>
 
-<div class="bg-glow"></div>
-<canvas class="particles-canvas" id="particles"></canvas>
-<div class="scroll-progress" id="scroll-progress"></div>
-<div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
-
-<!-- Theme toggle -->
-<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
-    <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18h6"/><path d="M10 22h4"/>
-        <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-    </svg>
-    <svg class="icon-light" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18h6" fill="none" stroke-width="2"/><path d="M10 22h4" fill="none" stroke-width="2"/>
-        <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-    </svg>
-</button>
-
-<!-- Navigation -->
-<nav>
-    <div class="container">
-        <a href="/" class="logo">
-            <div class="logo-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-            </div>
-            Repo Chat
-        </a>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/#features">Features</a></li>
-            <li><a href="/#how-it-works">How It Works</a></li>
-        </ul>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
-            <svg class="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-    </div>
-</nav>
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-    <a href="/">Home</a>
-    <a href="/#features">Features</a>
-    <a href="/#how-it-works">How It Works</a>
-</div>
+<?php require __DIR__ . '/includes/nav.php'; ?>
 
 <!-- Header -->
 <section class="page-header">
@@ -340,21 +278,8 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="footer-left">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            &copy; <?php echo date('Y'); ?> Repo Chat
-        </div>
-        <ul class="footer-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="mailto:support@repo.chat">Contact</a></li>
-        </ul>
-    </div>
-</footer>
+<?php require __DIR__ . '/includes/footer.php'; ?>
 
-<script src="/script.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 

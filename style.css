@@ -431,7 +431,7 @@ footer .container {
 
 /* ── Shared responsive ── */
 @media (max-width: 600px) {
-    .theme-toggle { right: 72px; }
+    .theme-toggle { right: 72px; top: 16px; }
     footer .container {
         flex-direction: column;
         gap: 16px;

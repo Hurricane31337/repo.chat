@@ -93,31 +93,36 @@ document.addEventListener('DOMContentLoaded', function () {
     var canvas = document.getElementById('particles');
     var ctx = canvas.getContext('2d');
     var particles = [];
-    var PARTICLE_COUNT = 60;
-
-    function resizeCanvas() {
-        var docH = document.documentElement.scrollHeight;
-        canvas.width = window.innerWidth;
-        canvas.height = docH;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
     function isLightTheme() {
         return document.documentElement.classList.contains('light');
     }
 
-    for (var i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * document.documentElement.scrollHeight,
-            size: Math.random() * 2.5 + 0.8,
-            speedX: (Math.random() - 0.5) * 0.3,
-            speedY: (Math.random() - 0.5) * 0.3,
-            opacity: Math.random() * 0.5 + 0.15,
-            hue: Math.random() > 0.5 ? 270 : 220
-        });
+    function createParticles() {
+        particles = [];
+        /* Calculate particle count based on canvas height (1 particle per ~40px of height) */
+        var PARTICLE_COUNT = Math.max(20, Math.floor(canvas.height / 40));
+        for (var i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2.5 + 0.8,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.3,
+                opacity: Math.random() * 0.5 + 0.15,
+                hue: Math.random() > 0.5 ? 270 : 220
+            });
+        }
     }
+
+    function resizeCanvas() {
+        var docH = document.documentElement.scrollHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = docH;
+        createParticles();
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     (function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -135,13 +135,17 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            font-size: 0.82rem;
-            color: var(--text-faint);
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
         .vs-versions span {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+        }
+        .vs-versions svg {
+            stroke: #22c55e;
         }
 
         /* ── Hero Screenshot ── */

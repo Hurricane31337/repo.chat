@@ -579,12 +579,6 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
-            .nav-links {
-                display: none;
-            }
-            .nav-toggle {
-                display: flex;
-            }
             .hero {
                 padding: 130px 0 60px;
             }
@@ -611,20 +605,6 @@
 <div class="scroll-progress" id="scroll-progress"></div>
 <div class="hack-overlay" id="hack-overlay"><div class="hack-terminal" id="hack-terminal"></div></div>
 
-<!-- Theme toggle -->
-<button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
-    <!-- Dark mode: show lightbulb outline (off) -->
-    <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18h6"/><path d="M10 22h4"/>
-        <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-    </svg>
-    <!-- Light mode: show lightbulb filled (on) -->
-    <svg class="icon-light" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18h6" fill="none" stroke-width="2"/><path d="M10 22h4" fill="none" stroke-width="2"/>
-        <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
-    </svg>
-</button>
-
 <!-- Navigation -->
 <nav>
     <div class="container">
@@ -645,10 +625,24 @@
                 Download
             </a></li>
         </ul>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
-            <svg class="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+                <!-- Dark mode: show lightbulb outline (off) -->
+                <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18h6"/><path d="M10 22h4"/>
+                    <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+                </svg>
+                <!-- Light mode: show lightbulb filled (on) -->
+                <svg class="icon-light" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18h6" fill="none" stroke-width="2"/><path d="M10 22h4" fill="none" stroke-width="2"/>
+                    <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+                </svg>
+            </button>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Open menu">
+                <svg class="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
     </div>
 </nav>
 <div class="nav-mobile-overlay" id="nav-mobile-overlay">

@@ -220,12 +220,15 @@ nav .container {
 }
 .nav-links a:hover { color: var(--text-link-hover); }
 
+/* ── Nav actions (theme-toggle + hamburger group) ── */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* ── Theme toggle ── */
 .theme-toggle {
-    position: fixed;
-    top: 18px;
-    right: 24px;
-    z-index: 200;
     width: 40px;
     height: 40px;
     border: 1px solid var(--border-btn-secondary);
@@ -430,8 +433,11 @@ footer .container {
 }
 
 /* ── Shared responsive ── */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+}
 @media (max-width: 600px) {
-    .theme-toggle { right: 72px; top: 14px; }
     footer .container {
         flex-direction: column;
         gap: 16px;
